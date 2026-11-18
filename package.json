@@ -1,6 +1,6 @@
 {
   "name": "kizamubeam-vm",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "author": "Hanjo Winter (https://github.com/negurvulkan)",
   "description": "KizamuBeam Virtual Machine: virtuelle Lasermaschine (GRBL/FluidNC/Ruida) zum Testen ohne Hardware",
   "license": "GPL-3.0-or-later",

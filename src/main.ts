@@ -11,7 +11,7 @@ import { BedView } from './view';
 import type { Bed3D, BodyState } from './view3d';
 import { LOOK_GROUPS, LOOKS, lookName, resolveLook } from './looks';
 
-const VERSION = '0.5.0';
+const VERSION = '0.5.1';
 const PIECES_KEY = 'kizamubeam-vm.pieces';
 const VIEW_KEY = 'kizamubeam-vm.view';
 
