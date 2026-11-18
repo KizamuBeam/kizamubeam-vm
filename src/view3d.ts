@@ -9,7 +9,7 @@ import type { Snapshot } from './api';
 import { contains, type BurnMap, type Piece } from './burn';
 import { signature, type Analysis, type Body } from './parts';
 import { onThemeChange } from './ui';
-import { lookTexture, resolveLook, shadeHex, type LookPreset } from '../../src/view3d/looks';
+import { lookTexture, resolveLook, shadeHex, type LookPreset } from './looks';
 
 const FRAME = 22;
 /** height of the laser module's lower edge above the bed */

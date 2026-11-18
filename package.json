@@ -1,0 +1,30 @@
+{
+  "name": "kizamubeam-vm",
+  "version": "0.5.0",
+  "author": "Hanjo Winter (https://github.com/negurvulkan)",
+  "description": "KizamuBeam Virtual Machine: virtuelle Lasermaschine (GRBL/FluidNC/Ruida) zum Testen ohne Hardware",
+  "license": "GPL-3.0-or-later",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tauri dev",
+    "build": "tsc -p tsconfig.json && vite build --config vite.config.ts",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "tauri:build": "tauri build",
+    "headless": "cd src-tauri && cargo run -- --headless",
+    "test": "node scripts/run-ts.mjs scripts/vm-burn-test.ts && node scripts/run-ts.mjs scripts/vm-parts-test.ts && cd src-tauri && cargo test -p kizamubeam-vm-core",
+    "test:vm": "npm test"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.12.3",
+    "@types/three": "^0.180.0",
+    "esbuild": "^0.21.5",
+    "typescript": "^5.9.3",
+    "vite": "^5.4.21"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.12.4",
+    "three": "^0.180.0"
+  }
+}

@@ -1,9 +1,53 @@
 // Translations of the Virtual Machine: keys are the German texts, English is listed here.
-// The language choice (system, German, English and every file in src/locales) is shared with the app's i18n module, so material names from
-// the app follow it too; a change reloads the window. Placeholders {name} are replaced.
+// A change of language reloads the window. Placeholders {name} are replaced.
 
-import { lang } from '../../src/i18n';
-export { LANGUAGES, langPref, setLangPref, type LangPref } from '../../src/i18n';
+export type Lang = 'de' | 'en';
+export type LangPref = Lang | 'system';
+
+export const LANGUAGES: [Lang, string][] = [
+  ['de', 'Deutsch'],
+  ['en', 'English'],
+];
+
+const LANG_KEY = 'kizamubeam.lang';
+
+function systemLang(): Lang {
+  try {
+    for (const l of navigator.languages ?? [navigator.language]) {
+      if (l && l.toLowerCase().startsWith('de')) return 'de';
+      if (l && l.toLowerCase().startsWith('en')) return 'en';
+    }
+  } catch {
+    /* navigator not available */
+  }
+  return 'en';
+}
+
+function readPref(): LangPref {
+  try {
+    const v = localStorage.getItem(LANG_KEY);
+    if (v === 'system' || v === 'de' || v === 'en') return v;
+  } catch {
+    /* storage not available */
+  }
+  return 'system';
+}
+
+let pref: LangPref = readPref();
+export const lang: Lang = pref === 'system' ? systemLang() : pref;
+if (typeof document !== 'undefined') document.documentElement.lang = lang;
+
+export const langPref = () => pref;
+
+export function setLangPref(p: LangPref): boolean {
+  pref = p;
+  try {
+    localStorage.setItem(LANG_KEY, p);
+  } catch {
+    /* storage not available */
+  }
+  return (p === 'system' ? systemLang() : p) !== lang;
+}
 
 const EN: Record<string, string> = {
   'Nur in der Desktop-App': 'Desktop app only',
@@ -161,10 +205,37 @@ const EN: Record<string, string> = {
   'Programme wie LightBurn oder RDWorks verbinden sich mit Ruida-Steuerungen immer über die Ports 50200 und 50207. Die Verwürfelung stellt sich selbst ein, sobald das Programm nach der Karten-ID fragt.':
     'Programs such as LightBurn or RDWorks always talk to Ruida controllers on ports 50200 and 50207. The scrambling adjusts itself as soon as the program asks for the card ID.',
   'Daten- und Tastenport von Ruida müssen verschieden sein.': 'The Ruida data and keypad ports must differ.',
+  // Material looks and groups
+  'Sperrholz Pappel': 'Poplar plywood',
+  'Sperrholz Birke': 'Birch plywood',
+  Buche: 'Beech',
+  Eiche: 'Oak',
+  Nussbaum: 'Walnut',
+  Kirsche: 'Cherry',
+  Bambus: 'Bamboo',
+  MDF: 'MDF',
+  Karton: 'Cardboard',
+  Papier: 'Paper',
+  Kork: 'Cork',
+  Leder: 'Leather',
+  Schiefer: 'Slate',
+  Granit: 'Granite',
+  'Acryl klar': 'Clear acrylic',
+  'Acryl farbig': 'Colored acrylic',
+  'Acryl deckend': 'Opaque acrylic',
+  Glas: 'Glass',
+  'Aluminium eloxiert': 'Anodized aluminum',
+  Edelstahl: 'Stainless steel',
+  Einfarbig: 'Solid color',
+  Holz: 'Wood',
+  'Platten und Papier': 'Boards and paper',
+  Stein: 'Stone',
+  'Kunststoff und Glas': 'Plastic and glass',
+  Metall: 'Metal',
+  Sonstiges: 'Other',
 };
 
 export function t(de: string, vars?: Record<string, string | number>): string {
-  // Only English is translated here; other languages get the English texts, as in the app
   let s = lang === 'de' ? de : (EN[de] ?? de);
   if (vars) for (const [k, v] of Object.entries(vars)) s = s.split(`{${k}}`).join(String(v));
   return s;

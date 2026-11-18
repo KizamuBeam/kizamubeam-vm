@@ -5,7 +5,7 @@
 import type { Snapshot } from './api';
 import { contains, corners, type Piece } from './burn';
 import { t } from './i18n';
-import { resolveLook } from '../../src/view3d/looks';
+import { resolveLook } from './looks';
 
 const MAX_PX = 4096;
 

@@ -9,8 +9,7 @@ import { LANGUAGES, langPref, setLangPref, t, type LangPref } from './i18n';
 import { getTheme, loadSide, onThemeChange, saveSide, setTheme, SIDE_DEFAULT, SIDE_MIN, type Theme } from './ui';
 import { BedView } from './view';
 import type { Bed3D, BodyState } from './view3d';
-import { LOOK_GROUPS, LOOKS, lookName, resolveLook } from '../../src/view3d/looks';
-import { t as tApp } from '../../src/i18n';
+import { LOOK_GROUPS, LOOKS, lookName, resolveLook } from './looks';
 
 const VERSION = '0.5.0';
 const PIECES_KEY = 'kizamubeam-vm.pieces';
@@ -537,7 +536,7 @@ async function start() {
     };
     const sel = h('select', {});
     for (const g of LOOK_GROUPS) {
-      const og = h('optgroup', { label: tApp(g.name) });
+      const og = h('optgroup', { label: t(g.name) });
       for (const l of LOOKS.filter((q) => q.group === g.id)) og.append(h('option', { value: l.id }, lookName(l)));
       sel.append(og);
     }
